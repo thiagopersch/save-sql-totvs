@@ -4,8 +4,6 @@ import { parseStringPromise } from 'xml2js';
 
 @Injectable()
 export class TotvsService {
-  private readonly wsdlUrl = 'http://localhost:8051/wsDataServer/MEX?wsdl';
-
   async readRecord(
     dataServerName: string,
     primaryKey: string,
