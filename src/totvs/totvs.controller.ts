@@ -1,4 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { TotvsService } from './totvs.service';
 
 @Controller('totvs')
@@ -14,7 +14,7 @@ export class TotvsController {
     @Query('password') password: string,
     @Query('tbc') tbc: string,
   ) {
-    return this.totvsService.readRecord(
+    return await this.totvsService.readRecord(
       dataServerName,
       primaryKey,
       contexto,
@@ -24,28 +24,22 @@ export class TotvsController {
     );
   }
 
-  // @Post()
-  // create(@Body() createTotvDto: CreateTotvDto) {
-  //   return this.totvsService.create(createTotvDto);
-  // }
-
-  // @Get()
-  // findAll() {
-  //   return this.totvsService.findAll();
-  // }
-
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.totvsService.findOne(+id);
-  // }
-
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateTotvDto: UpdateTotvDto) {
-  //   return this.totvsService.update(+id, updateTotvDto);
-  // }
-
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.totvsService.remove(+id);
-  // }
+  @Post('save-record')
+  async saveRecord(
+    @Body('dataServerName') dataServerName: string,
+    @Body('xml') xml: string,
+    @Body('contexto') contexto: string,
+    @Body('username') username: string,
+    @Body('password') password: string,
+    @Body('tbc') tbc: string,
+  ) {
+    return await this.totvsService.saveRecord(
+      dataServerName,
+      xml,
+      contexto,
+      username,
+      password,
+      tbc,
+    );
+  }
 }
