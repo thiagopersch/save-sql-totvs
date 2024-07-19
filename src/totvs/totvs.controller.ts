@@ -5,6 +5,27 @@ import { TotvsService } from './totvs.service';
 export class TotvsController {
   constructor(private readonly totvsService: TotvsService) {}
 
+  @Get('read-view')
+  async readView(
+    @Query('dataServerName') dataServerName: string,
+    @Query('filtro') filtro: string,
+    @Query('contexto') contexto: string,
+    @Query('username') username: string,
+    @Query('password') password: string,
+    @Query('tbc') tbc: string,
+  ) {
+    const result = await this.totvsService.readView(
+      dataServerName,
+      filtro,
+      contexto,
+      username,
+      password,
+      tbc,
+    );
+
+    return result;
+  }
+
   @Get('read-record')
   async readRecord(
     @Query('dataServerName') dataServerName: string,
