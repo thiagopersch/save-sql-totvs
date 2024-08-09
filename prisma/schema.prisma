@@ -14,14 +14,14 @@ datasource db {
 }
 
 model client {
-  id           String    @id @default(uuid())
-  image        String?
-  name         String
-  link_crm     String
-  site         String?
-  student_band String?
-  status       Boolean   @default(true)
-  createdAt    DateTime  @default(now()) @db.Timestamptz()
-  updatedAt    DateTime  @updatedAt @db.Timestamptz()
-  deletedAt    DateTime? @db.Timestamptz()
+  id          String    @id @default(uuid())
+  image       String?
+  name        String
+  link_crm    String
+  site        String?
+  student_qtd String?
+  status      Boolean   @default(true)
+  createdAt   DateTime  @default(now()) @db.Timestamptz()
+  updatedAt   DateTime  @updatedAt @db.Timestamptz()
+  deletedAt   DateTime? @db.Timestamptz()
 }
