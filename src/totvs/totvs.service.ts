@@ -34,11 +34,17 @@ export class TotvsService {
       if (!parsedResult[dynamicKey]) {
         const shouldRemoveDataSuffix =
           (dataServerName.endsWith('Data') ||
-            dataServerName.endsWith('DataBR')) &&
+            dataServerName.endsWith('DataBR') ||
+            dataServerName.endsWith('Server')) &&
           (!dataServerName.endsWith('Data') ||
-            !dataServerName.endsWith('DataBR'));
+            !dataServerName.endsWith('DataBR') ||
+            !dataServerName.endsWith('Server'));
         if (shouldRemoveDataSuffix) {
-          dynamicKey = dataServerName.replace('Data', '').replace('BR', '');
+          dynamicKey = dataServerName
+            .replace('Data', '')
+            .replace('BR', '')
+            .replace('Server', '')
+            .replace('RMS', '');
         }
       }
 
