@@ -1,17 +1,12 @@
 # Use uma imagem base oficial do Node.js
-FROM node:latest
+FROM node:latest as node-builder
 
 # Defina o diretório de trabalho dentro do contêiner
-WORKDIR /usr/src/app
-
-# Copie o package.json e o package-lock.json para o diretório de trabalho
-COPY package*.json ./
+WORKDIR /app
 
 # Instale as dependências
-RUN yarn install
-
-# Copie o restante do código da aplicação para o diretório de trabalho
 COPY . .
+RUN yarn install
 
 # Construa a aplicação
 RUN yarn build
