@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
+import { AuthModule } from './api/auth/auth.module';
+import { ClientModule } from './api/client/client.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ExecuteSentenceModule } from './sentence/execute/execute-sentence.module';
 import { TotvsModule } from './totvs/totvs.module';
-import { ClientModule } from './api/client/client.module';
 
 @Module({
-  imports: [TotvsModule, ExecuteSentenceModule, ClientModule],
+  imports: [AuthModule, TotvsModule, ExecuteSentenceModule, ClientModule],
   controllers: [AppController],
   providers: [AppService],
 })
