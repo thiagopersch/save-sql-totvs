@@ -13,6 +13,9 @@ COPY . .
 # Instala as dependências
 RUN yarn install
 
+# Instala o nodemon
+RUN yarn add --dev nodemon
+
 # Construa a aplicação
 RUN yarn build
 
@@ -28,5 +31,8 @@ EXPOSE 3333
 # Defina o script como ponto de entrada
 ENTRYPOINT ["/app/entrypoint.sh"]
 
+# Comando padrão para iniciar a aplicação
+CMD ["npx", "nodemon", "--watch", "src", "--exec", "yarn dev"]
+
 # Comando padrão para iniciar a aplicação (após execução do entrypoint.sh)
-CMD ["yarn", "dev"]
+#CMD ["yarn", "dev"]

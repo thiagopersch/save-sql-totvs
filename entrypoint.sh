@@ -9,10 +9,20 @@ until pg_isready -h "$POSTGRES_HOST" -p "$POSTGRES_PORT" -U "$POSTGRES_USERNAME"
   sleep 2
 done
 
-# Executa as migrações do Prisma
-echo "Executando as migrações do Prisma..."
-yarn prisma migrate dev
-
-# Inicia o servidor da aplicação
 echo "Iniciando o servidor da aplicação..."
-exec "$@"  # Isso executa o comando CMD fornecido no Dockerfile, como 'yarn dev'
+"$@" &  # Inicia o comando padrão do CMD (yarn dev) em segundo plano
+
+# Aguarda um breve momento para garantir que o servidor foi iniciado
+sleep 5
+
+# Executa as migrações do Prisma
+if [ "$NODE_ENV" = "production" ]; then
+  echo "Executando as migrações do Prisma em produção..."
+  npx prisma migrate deploy --name init
+else
+  echo "Executando as migrações do Prisma em desenvolvimento..."
+  npx prisma migrate dev --name init
+fi
+
+# Mantém o contêiner rodando com o servidor
+wait
